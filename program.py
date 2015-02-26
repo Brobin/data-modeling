@@ -7,8 +7,6 @@ import sys
 from read_records import *
 
 
-	
-
 # Get the command line arguments. For the first and last records
 # Calls the method to read all of the records from the dat files
 # Loops through all the records and writes them to the csv files
