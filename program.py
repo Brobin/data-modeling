@@ -24,7 +24,7 @@ length = len(sys.argv)
 if length > 1:
 	command = sys.argv[1]
 
-	if command == "import":
+	if command == "load":
 		start_time = time.time()
 		import_files()
 		total_time = time.time() - start_time
@@ -46,8 +46,7 @@ if length > 1:
 			users = sort_users_by_state(users)
 
 		total_time = time.time() - start_time
-		for user in users:
-			print(user)
+		print(total_time)
 
 	elif length > 2 and command == "query":
 		arg = sys.argv[2]
