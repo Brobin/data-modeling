@@ -22,4 +22,4 @@ class Message():
 	def __str__(self):
 		return self.csv()
 	def csv(self):
-		return "{0};{1};{2}".format(self.user_id, self.date, self.text)
+		return "{0};{1};{2};{3}".format(self.id, self.user_id, self.date, self.text)
