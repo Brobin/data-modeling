@@ -4,51 +4,46 @@ import datetime
 import time
 import sys
 
-from read_records import *
+from import_records import *
 
 
-# Get the command line arguments. For the first and last records
+# Get the command line arguments for the corresponding functions
 # Calls the method to read all of the records from the dat files
 # Loops through all the records and writes them to the csv files
 # Finally, it prints out the total time that the operation takes
 
-if len(sys.argv) > 1 and sys.argv[1] == "all":
-	start = 0
-	end = 2000
-else:
-	start = int(sys.argv[1]) if len(sys.argv) > 1 else 1
-	end = int(sys.argv[2]) if len(sys.argv) > 2 else start + 1
+commands = [
+	"\timport\timports binary files to csv\n",
+	"\tshow\tshow a record\n"
+]
 
-start_time = time.time()
+length = len(sys.argv)
 
-records = read_all_records(start, end)
+if length > 1:
+	command = sys.argv[1]
 
-def pad_zeroes(number):
-	number = str(number)
-	while (len(number) < 6):
-		number = "0" + number
-	return number
+	if command == "import":
+		import_files()
 
-count = 0
-for record in records:
-	id = pad_zeroes(record.id)
-	user = open('csv/users/{0}.csv'.format(id), 'w')
-	user.write(record.csv())
-	print(record.csv())
-	user.close()
-	
-	for message in record.messages:
-		name = pad_zeroes(count)
-		filename = 'csv/messages/{0}.csv'.format(name)
-		message_file = open(filename, 'w')
-		message_file.write(str(count) + ";" + str(message.csv()))
-		message_file.close()
-		count = count + 1
+	elif length > 2:
+		arg = sys.argv[2]
 
+		if command == "show":
+			show_record(int(sys.argv[2]))
 
-total_time = time.time() - start_time
-
-print('\nRead {0} records in {1} seconds\n'
-	.format(len(records), total_time))
-
+		elif command == "sort":
+			if arg == "id":
+				x = 5
+				# sort by id
+			elif arg == "name":
+				x = 5
+				# sort by name
+			elif arg == "location":
+				x = 5
+				# sort by location
+		else:
+			print("second paramter required")
+	else:
+		commands = ''.join([c for c in commands])
+		print("Please enter a command\n{0}".format(commands))
 
