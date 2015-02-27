@@ -2,6 +2,8 @@
 
 Unzip data.zip to run this. Then in the command line run
 
-`python program.py 0 100` (gives you the first 100 records)
+`python program.py load` - Loads the assignment files and restructures them into individual files
 
-`python program.py 69` (gives you the 69th record)
+`python program.py users {field}` - Shows all of the users, sorted by the field (id, first, last, city, state)
+
+`python program.py query {x}` - Runs one of the queries x = (1-4)

@@ -4,8 +4,19 @@ import datetime
 import time
 import sys
 
-from import_records import *
-from sort_records import *
+from query import *
+from load import *
+from sort import *
+
+
+def error():
+	commands = [
+		"\tload\t\tloads binary files to individual files\n",
+		"\tusers {field}\tshows all the users, sorted by a field\n",
+		"\tquery {x}\trun of the the queries (1-4)\n"
+	]
+	commands = ''.join([c for c in commands])
+	print("\nPlease enter a command\n{0}".format(commands))
 
 
 length = len(sys.argv)
@@ -18,6 +29,25 @@ if length > 1:
 		import_files()
 		total_time = time.time() - start_time
 		print(total_time)
+
+	elif length > 2 and command == "users":
+		start_time = time.time()
+		arg = sys.argv[2]
+		users = load_users()
+		if arg == "id":
+			users = sort_users_by_id(users)
+		elif arg == "first":
+			users = sort_users_by_first_name(users)
+		elif arg == "last":
+			users = sort_users_by_last_name(users)
+		elif arg == "city":
+			users = sort_users_by_city(users)
+		elif arg == "state":
+			users = sort_users_by_state(users)
+
+		total_time = time.time() - start_time
+		for user in users:
+			print(user)
 
 	elif length > 2 and command == "query":
 		arg = sys.argv[2]
@@ -45,11 +75,3 @@ if length > 1:
 		error()
 else:
 	error()
-
-def error():
-	commands = [
-		"\timport\timports binary files to csv\n",
-		"\tquery\trun of the the queries (1-4)\n"
-	]
-	commands = ''.join([c for c in commands])
-	print("\nPlease enter a command\n{0}".format(commands))

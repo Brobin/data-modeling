@@ -6,22 +6,21 @@ import glob
 
 from models import User, Message
 
+USER_FILE = './dat/users/*.dat'
+MESSAGE_FILE = './dat/messages/*.dat'
+
+USER_STRUCT = 'i64s64s'
+MESSAGE_STRUCT = 'iiiiiii1024s'
 
 def load_users():
 	users = []
-	load = struct.Struct('i64s64s')
-	for user in glob.glob('./dat/users/*.dat'):
+	load = struct.Struct(USER_STRUCT)
+	for user in glob.glob(USER_FILE):
 		data = open(user)
 		id, name, location = load.unpack(data.read(load.size))
 		user = User(id, name, location)
 		users.append(user)
-
 	return users
-
-def sort_users_by_id(users):
-	def get_id(item):
-		return item.id
-	return sorted(users, key=get_id)
 
 def load_users_with_messages():
 	users = load_users()
@@ -32,14 +31,13 @@ def load_users_with_messages():
 
 def load_messages():
 	messages = []
-	for data in glob.glob('./dat/messages/*.dat'):
+	for data in glob.glob(MESSAGE_FILE):
 		data = open(data)
-		load = struct.Struct('iiiiiii1024s')
+		load = struct.Struct(MESSAGE_STRUCT)
 		id, user_id, year, month, day, hour, minute, text = load.unpack(data.read(load.size))
 		date = datetime.datetime(year, month, day, hour, minute)
 		message = Message(id, user_id, date, text)
-		messages.append(message)
-		
+		messages.append(message)	
 	return messages
 
 
