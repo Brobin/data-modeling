@@ -12,8 +12,12 @@ from read_records import *
 # Loops through all the records and writes them to the csv files
 # Finally, it prints out the total time that the operation takes
 
-start = int(sys.argv[1]) if len(sys.argv) > 1 else 1
-end = int(sys.argv[2]) if len(sys.argv) > 2 else start + 1
+if len(sys.argv) > 1 and sys.argv[1] == "all":
+	start = 0
+	end = 2000
+else:
+	start = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+	end = int(sys.argv[2]) if len(sys.argv) > 2 else start + 1
 
 start_time = time.time()
 
@@ -34,15 +38,17 @@ for record in records:
 	user.close()
 	
 	for message in record.messages:
-		filename = 'csv/messages/{0}.csv'.format(pad_zeroes(count))
+		name = pad_zeroes(count)
+		filename = 'csv/messages/{0}.csv'.format(name)
 		message_file = open(filename, 'w')
-		message_file.write(str(message.csv()))
+		message_file.write(str(count) + ";" + str(message.csv()))
 		message_file.close()
 		count = count + 1
 
 
 total_time = time.time() - start_time
 
-print('\nRead {0} records in {1} seconds\n'.format(len(records), total_time))
+print('\nRead {0} records in {1} seconds\n'
+	.format(len(records), total_time))
 
 
