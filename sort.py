@@ -32,7 +32,7 @@ def sort_users_by_city(users):
 
 def sort_users_by_state(users):
 	def get_state(user):
-		return user.location.split(',')[0]
+		return user.location.split(',')[1]
 	users = sorted(users, key=get_state)
 	write_user_files(users)
 	return users

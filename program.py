@@ -12,7 +12,7 @@ from sort import *
 def error():
 	commands = [
 		"\tload\t\tloads binary files to individual files\n",
-		"\tusers {field}\tshows all the users, sorted by a field\n",
+		"\tusers {field}\tsorts the users by a field\n",
 		"\tquery {x}\trun of the the queries (1-4)\n"
 	]
 	commands = ''.join([c for c in commands])
@@ -46,6 +46,8 @@ if length > 1:
 			users = sort_users_by_state(users)
 
 		total_time = time.time() - start_time
+		for user in users:
+			print(user)
 		print(total_time)
 
 	elif length > 2 and command == "query":
