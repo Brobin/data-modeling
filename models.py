@@ -35,7 +35,3 @@ class Message():
 		return struct.pack('iiiiiii1024s', self.id, self.user_id, 
 			year, month, day, hour, minute, self.text)
 
-
-message = Message(1, 1, datetime.datetime(2014,10,5,2,2,2), "this is some test stuff")
-file = open('test.dat', 'wb')
-file.write(message.byte())
