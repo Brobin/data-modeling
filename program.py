@@ -8,20 +8,16 @@ from import_records import *
 from sort_records import *
 
 
-# Get the command line arguments for the corresponding functions
-# Calls the method to read all of the records from the dat files
-# Loops through all the records and writes them to the csv files
-# Finally, it prints out the total time that the operation takes
-
-
-
 length = len(sys.argv)
 
 if length > 1:
 	command = sys.argv[1]
 
 	if command == "import":
+		start_time = time.time()
 		import_files()
+		total_time = time.time() - start_time
+		print(total_time)
 
 	elif length > 2 and command == "query":
 		arg = sys.argv[2]
@@ -41,6 +37,8 @@ if length > 1:
 			user = best_early_nebraskan(users)
 			print(user)
 			print(len(user.messages))
+		else:
+			print("invalid query")
 		total_time = time.time() - start_time
 		print(total_time)
 	else:

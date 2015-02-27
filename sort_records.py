@@ -9,12 +9,13 @@ from models import User, Message
 
 def load_users():
 	users = []
+	load = struct.Struct('i64s64s')
 	for user in glob.glob('./dat/users/*.dat'):
-		user_file = open(user)
-		load = struct.Struct('i64s64s')
-		id, name, location = load.unpack(user_file.read(load.size))
+		data = open(user)
+		id, name, location = load.unpack(data.read(load.size))
 		user = User(id, name, location)
 		users.append(user)
+
 	return users
 
 def sort_users_by_id(users):
@@ -24,7 +25,6 @@ def sort_users_by_id(users):
 
 def load_users_with_messages():
 	users = load_users()
-	users = sort_users_by_id(users)
 	messages = load_messages()
 	for user in users:
 		user.messages = [m for m in messages if m.user_id == user.id]
@@ -32,10 +32,10 @@ def load_users_with_messages():
 
 def load_messages():
 	messages = []
-	for message_file in glob.glob('./dat/messages/*.dat'):
-		message_file = open(message_file)
+	for data in glob.glob('./dat/messages/*.dat'):
+		data = open(data)
 		load = struct.Struct('iiiiiii1024s')
-		id, user_id, year, month, day, hour, minute, text = load.unpack(message_file.read(load.size))
+		id, user_id, year, month, day, hour, minute, text = load.unpack(data.read(load.size))
 		date = datetime.datetime(year, month, day, hour, minute)
 		message = Message(id, user_id, date, text)
 		messages.append(message)

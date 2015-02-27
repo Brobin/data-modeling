@@ -55,7 +55,6 @@ def pad_zeroes(number):
 def import_files():
 	start_time = time.time()
 	records = import_all_records(0, 2000)
-
 	for record in records:
 		id = pad_zeroes(record.id)
 		user = open('dat/users/{0}.dat'.format(id), 'wb')
@@ -67,4 +66,5 @@ def import_files():
 			message_file = open('dat/messages/{0}.dat'.format(name), 'wb')
 			message_file.write(str(message.byte()))
 			message_file.close()
+	#users.close()
 
