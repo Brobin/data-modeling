@@ -58,14 +58,13 @@ def import_files():
 
 	for record in records:
 		id = pad_zeroes(record.id)
-		user = open('csv/users/{0}.csv'.format(id), 'w')
-		user.write(record.csv())
+		user = open('dat/users/{0}.dat'.format(id), 'wb')
+		user.write(record.byte())
 		user.close()
 		
 		for message in record.messages:
 			name = pad_zeroes(message.id)
-			filename = 'csv/messages/{0}.csv'.format(name)
-			message_file = open(filename, 'w')
-			message_file.write(str(message.csv()))
+			message_file = open('dat/messages/{0}.dat'.format(name), 'wb')
+			message_file.write(str(message.byte()))
 			message_file.close()
 

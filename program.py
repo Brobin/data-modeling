@@ -23,34 +23,26 @@ if length > 1:
 	if command == "import":
 		import_files()
 
-	elif length > 2:
+	elif length > 2 and command == "query":
 		arg = sys.argv[2]
-
-		if command == "show":
-			show_record(int(sys.argv[2]))
-
-		elif command == "query":
-			start_time = time.time()
-			if arg == "1":
-				users = load_users()
-				print(len(nebraskans(users)))
-			elif arg == "2":
-				messages = load_messages()
-				print(len(early_birds(messages)))
-			elif arg == "3":
-				users = load_users()
-				messages = load_messages()
-				print(len(early_nebraskans(users, messages)))
-			elif arg == "4":
-				users = load_users_with_messages()
-				user = best_early_nebraskan(users)
-				print(user)
-				print(len(user.messages))
-			total_time = time.time() - start_time
-			print(total_time)
-
-		else:
-			print("second paramter required")
+		start_time = time.time()
+		if arg == "1":
+			users = load_users()
+			print(len(nebraskans(users)))
+		elif arg == "2":
+			messages = load_messages()
+			print(len(early_birds(messages)))
+		elif arg == "3":
+			users = load_users()
+			messages = load_messages()
+			print(len(early_nebraskans(users, messages)))
+		elif arg == "4":
+			users = load_users_with_messages()
+			user = best_early_nebraskan(users)
+			print(user)
+			print(len(user.messages))
+		total_time = time.time() - start_time
+		print(total_time)
 	else:
 		error()
 else:

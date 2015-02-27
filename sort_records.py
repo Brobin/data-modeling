@@ -1,5 +1,6 @@
 
 import datetime
+import struct
 import time
 import glob
 
@@ -8,11 +9,11 @@ from models import User, Message
 
 def load_users():
 	users = []
-	for user_file in glob.glob('./csv/users/*.csv'):
-		user_file = open(user_file)
-		data = user_file.readline()
-		data = data.split(";")
-		user = User(int(data[0]), data[1], data[2])
+	for user in glob.glob('./dat/users/*.dat'):
+		user_file = open(user)
+		load = struct.Struct('i64s64s')
+		id, name, location = load.unpack(user_file.read(load.size))
+		user = User(id, name, location)
 		users.append(user)
 	return users
 
@@ -31,20 +32,15 @@ def load_users_with_messages():
 
 def load_messages():
 	messages = []
-	for message_file in glob.glob('./csv/messages/*.csv'):
+	for message_file in glob.glob('./dat/messages/*.dat'):
 		message_file = open(message_file)
-		data = message_file.readline()
-		data = data.split(";")
-		date = date_parse(data[2])
-		message = Message(int(data[0]), int(data[1]), date, data[3])
+		load = struct.Struct('iiiiiii1024s')
+		id, user_id, year, month, day, hour, minute, text = load.unpack(message_file.read(load.size))
+		date = datetime.datetime(year, month, day, hour, minute)
+		message = Message(id, user_id, date, text)
 		messages.append(message)
 		
 	return messages
-
-def date_parse(s):
-	return datetime.datetime(int(s[0:4]),int(s[5:7]),
-		int(s[8:10]), int(s[11:13]),
-		int(s[14:16]), int(s[17:19]))
 
 
 def nebraskans(users):
