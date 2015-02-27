@@ -19,20 +19,26 @@ start_time = time.time()
 
 records = read_all_records(start, end)
 
-for record in records:
-	id = str(record.id)
-	while len(id) < 6:
-		id = "0" + id
+def pad_zeroes(number):
+	number = str(number)
+	while (len(number) < 6):
+		number = "0" + number
+	return number
 
+count = 0
+for record in records:
+	id = pad_zeroes(record.id)
 	user = open('csv/users/{0}.csv'.format(id), 'w')
 	user.write(record.csv())
 	print(record.csv())
 	user.close()
 	
-	messages = open('csv/messages/{0}.csv'.format(id), 'w')
 	for message in record.messages:
-		messages.write("{0}\n".format(message.csv()))
-	messages.close()
+		filename = 'csv/messages/{0}.csv'.format(pad_zeroes(count))
+		message_file = open(filename, 'w')
+		message_file.write(str(message.csv()))
+		message_file.close()
+		count = count + 1
 
 
 total_time = time.time() - start_time
