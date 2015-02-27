@@ -56,10 +56,8 @@ def sort_messages_by_user(messages):
 def write_user_files(users):
 	count = 0
 	for user in users:
-		print(count)
 		write_user(user, count)
 		count = count + 1
-	print("length: " + str(len(users)))
 
 def write_message_files(messages):
 	count = 0
