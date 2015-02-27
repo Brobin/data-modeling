@@ -35,11 +35,12 @@ if length > 1:
 				users = load_users()
 				print(len(nebraskans(users)))
 			elif arg == "2":
-				users = load_users_with_messages()
-				print(len(early_birds(users)))
+				messages = load_messages()
+				print(len(early_birds(messages)))
 			elif arg == "3":
-				users = load_users_with_messages()
-				print(len(early_nebraskans(users)))
+				users = load_users()
+				messages = load_messages()
+				print(len(early_nebraskans(users, messages)))
 			elif arg == "4":
 				users = load_users_with_messages()
 				user = best_early_nebraskan(users)

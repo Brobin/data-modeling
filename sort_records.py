@@ -57,32 +57,37 @@ def nebraskans(users):
 			result.append(user)
 	return result
 
-def early_birds(users):
+def early_birds(messages):
 	'''
 	find all users who sent messages between 8am-9am
 	'''
 	result = []
-	for user in users:
-		for message in user.messages:
-			hour = message.date.hour
-			minute = message.date.minute
-			if hour == 8 or (hour == 9 and minute == 0):
-				result.append(user)
-				break
+	for m in messages:
+		hour = m.date.hour
+		minute = m.date.minute
+		if hour == 8 or (hour == 9 and minute == 0):
+			if m.user_id not in result:
+				result.append(m.user_id)
 	return result
 
-def early_nebraskans(users):
+def early_nebraskans(users, messages):
 	'''
 	find all users who sent messages between 8am-9am from Nebraska.
 	'''
-	return nebraskans(early_birds(users))
+	users = nebraskans(users)
+	ids = early_birds(messages)
+	users = [u for u in users if u.id in ids]
+	return users
 
 def best_early_nebraskan(users):
 	'''
 	find the user who sent the maximum number of messages 
 	between 8am-9am from Nebraska
 	'''
-	users = early_nebraskans(users)
+	messages = []
+	for user in users:
+		messages = messages + user.messages
+	users = early_nebraskans(users, messages)
 	best_user = None
 	most_messages = 0
 	for user in users:
