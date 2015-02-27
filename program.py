@@ -69,7 +69,8 @@ if length > 1:
 			print(user)
 			print(len(user.messages))
 		else:
-			print("invalid query")
+			print("invalid query: {0}".format(arg))
+			error()
 		total_time = time.time() - start_time
 		print(total_time)
 	else:

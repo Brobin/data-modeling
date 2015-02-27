@@ -11,8 +11,6 @@ def import_record(file, count):
 	id, name, location, num = RECORD.unpack(file.read(RECORD.size))
 	name = name.split(b"\0", 1)[0]
 	location = location.split(b"\0", 1)[0]
-	if location == "":
-		location = "St. Paul Park,Minnesota,"
 
 	messages = []
 
