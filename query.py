@@ -1,3 +1,7 @@
+'''
+This file contains functions to run queries against the flat
+file system.
+'''
 
 import datetime
 import struct
@@ -21,6 +25,7 @@ def load_users():
 		user = User(id, name, location)
 		users.append(user)
 	return users
+
 
 def load_users_with_messages():
 	users = load_users()

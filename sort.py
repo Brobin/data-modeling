@@ -38,6 +38,13 @@ def sort_users_by_state(users):
 	return users
 
 
+def sort_messages_by_id(messages):
+	def get_id(message):
+		return message.id
+	messages = sorted(messages, key=get_id)
+	write_message_files(messages)
+	return messages
+
 def sort_messages_by_date(messages):
 	def get_date(message):
 		return message.date
@@ -64,3 +71,5 @@ def write_message_files(messages):
 	for message in messages:
 		write_message(message, count)
 		count = count + 1
+
+

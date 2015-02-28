@@ -4,6 +4,7 @@ import datetime
 import time
 import sys
 
+from query_tree import *
 from query import *
 from load import *
 from sort import *
@@ -26,7 +27,16 @@ if length > 1:
 
 	if command == "load":
 		start_time = time.time()
-		import_files()
+		if length > 2 and sys.argv[2] == "tree":
+			import_files()
+			users = load_users()
+			users = sort_users_by_id(users)
+			construct_user_tree(users, 10)
+			messages = load_messages()
+			messages = sort_messages_by_id(messages)
+			construct_message_tree(messages, 10)
+		else:
+			import_files()
 		total_time = time.time() - start_time
 		print(total_time)
 
