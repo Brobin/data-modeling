@@ -67,15 +67,11 @@ def sort_messages_by_user(messages):
 
 
 def write_user_files(users):
-	count = 0
 	for user in users:
-		write_user(user, count)
-		count = count + 1
+		write_user(user, user.id)
 
 def write_message_files(messages):
-	count = 0
 	for message in messages:
-		write_message(message, count)
-		count = count + 1
+		write_message(message, user.id)
 
 
