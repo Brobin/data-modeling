@@ -15,41 +15,12 @@ def sort_users_by_id(users):
 	write_user_files(users)
 	return users
 
-def sort_users_by_first_name(users):
-	def get_first_name(user):
-		return user.name.split(' ')[0]
-	users = sorted(users, key=get_first_name)
-	write_user_files(users)
-	return users
-
-def sort_users_by_last_name(users):
-	def get_last_name(user):
-		return user.name.split(' ')[1]
-	users = sorted(users, key=get_last_name)
-	write_user_files(users)
-	return users
-
-def sort_users_by_city(users):
-	def get_city(user):
-		return user.city
-	users = sorted(users, key=get_city)
-	write_user_files(users)
-	return users
-
 def sort_users_by_state(users):
 	def get_state(user):
 		return user.state
 	users = sorted(users, key=get_state)
 	write_user_files(users)
 	return users
-
-
-def sort_messages_by_id(messages):
-	def get_id(message):
-		return message.id
-	messages = sorted(messages, key=get_id)
-	write_message_files(messages)
-	return messages
 
 def sort_messages_by_hour(messages):
 	def get_hour(message):
