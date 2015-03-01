@@ -1,4 +1,9 @@
 
+'''
+Models to contain the data for Users and Messages
+'''
+
+
 import datetime
 import struct
 
@@ -13,7 +18,7 @@ class User():
 	def __str__(self):
 		return self.csv()
 	def csv(self):
-		return "{0};{1};{2};{3}".format(self.id, self.name, self.location, self.children)
+		return "{0};{1};{2}".format(self.id, self.name, self.location)
 	def byte(self):
 		return struct.pack('i64s64si', self.id, self.name, self.location, self.children)
 

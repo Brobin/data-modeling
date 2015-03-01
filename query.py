@@ -1,7 +1,9 @@
+
 '''
 This file contains functions to run queries against the flat
 file system.
 '''
+
 
 import datetime
 import struct
@@ -9,6 +11,7 @@ import time
 import glob
 
 from models import User, Message
+
 
 USER_FILE = './dat/users/*.dat'
 MESSAGE_FILE = './dat/messages/*.dat'

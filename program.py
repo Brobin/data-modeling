@@ -1,5 +1,10 @@
 #!/usr/bin/python
 
+'''
+This file contains the command line program logic to
+run queries and set up the database.
+'''
+
 import datetime
 import time
 import sys
@@ -11,12 +16,12 @@ from sort import *
 
 def error():
 	commands = [
-		"\tload\t\tloads binary files to individual files\n",
-		"\tusers {field}\tsorts the users by a field\n",
-		"\tquery {x}\trun of the the queries (1-4)\n"
+		"\nload\t\tloads binary files to individual files\n",
+		"users {field}\tsorts the users by a field\n\t\t(id, first, last, city, state)\n",
+		"query {x}\trun of the the queries (1-4)"
 	]
 	commands = ''.join([c for c in commands])
-	print("\nPlease enter a command\n{0}".format(commands))
+	print("Availiable Commands{0}".format(commands))
 
 
 length = len(sys.argv)
@@ -44,10 +49,10 @@ if length > 1:
 			users = sort_users_by_city(users)
 		elif arg == "state":
 			users = sort_users_by_state(users)
-
+		else:
+			print("ERROR: invalid query: {0}".format(arg))
+			error()
 		total_time = time.time() - start_time
-		for user in users:
-			print(user)
 		print(total_time)
 
 	elif length > 2 and command == "query":
@@ -69,7 +74,7 @@ if length > 1:
 			print(user)
 			print(len(user.messages))
 		else:
-			print("invalid query: {0}".format(arg))
+			print("ERROR: invalid query: {0}".format(arg))
 			error()
 		total_time = time.time() - start_time
 		print(total_time)

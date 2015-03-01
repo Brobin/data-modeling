@@ -1,4 +1,10 @@
 
+'''
+Sorts the users and messages by the given fields
+and reindexes the files in that order.
+'''
+
+
 from load import write_user, write_message
 
 

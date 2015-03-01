@@ -1,4 +1,10 @@
 
+'''
+Loads the data from the given records and rewrites
+them into newly organized files.
+'''
+
+
 import datetime
 import struct
 import time
@@ -22,7 +28,6 @@ def import_record(file, count):
 	record = User(id, name, location, messages)
 	return (count, record)
 
-
 def import_message(file, user_id, count):
 	MESSAGE = struct.Struct('1024siiiii')
 	text, year, month, day, hour, minute = MESSAGE.unpack(file.read(MESSAGE.size))
@@ -30,7 +35,6 @@ def import_message(file, user_id, count):
 	date = datetime.datetime(year, month, day, hour, minute)
 	message = Message(count, user_id, date, text)
 	return message
-
 
 def import_all_records(start, end):
 	records = []
@@ -43,7 +47,6 @@ def import_all_records(start, end):
 		count, processed_record = import_record(record, count)
 		records.append(processed_record)
 	return records
-
 
 def pad_zeroes(number):
 	number = str(number)
