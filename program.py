@@ -17,7 +17,7 @@ from sort import *
 def error():
 	commands = [
 		"\nload\t\tloads binary files to individual files\n",
-		"users {field}\tsorts the users by a field\n\t\t(id, first, last, city, state)\n",
+		"users {field}\tsorts the users by a field\n\t\t(id, state)\n",
 		"messages {field}\tsorts the messages by a field\n\t\t(id, hour, user)\n",
 		"query {x}\trun of the the queries (1-4)"
 	]
@@ -42,12 +42,6 @@ if length > 1:
 		users = load_users()
 		if arg == "id":
 			users = sort_users_by_id(users)
-		elif arg == "first":
-			users = sort_users_by_first_name(users)
-		elif arg == "last":
-			users = sort_users_by_last_name(users)
-		elif arg == "city":
-			users = sort_users_by_city(users)
 		elif arg == "state":
 			users = sort_users_by_state(users)
 		else:

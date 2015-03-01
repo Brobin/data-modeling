@@ -67,20 +67,20 @@ def import_files():
 
 def write_user(user, number):
 	number = pad_zeroes(number)
-	user_file = open('dat/users/{0}.dat'.format(number), 'wb')
+	user_file = open('./users/{0}.dat'.format(number), 'wb')
 	user_file.write(user.byte())
 	user_file.close()
 
 def write_message(message, number):
 	number = pad_zeroes(number)
-	message_file = open('dat/messages/{0}.dat'.format(number), 'wb')
+	message_file = open('./messages/{0}.dat'.format(number), 'wb')
 	message_file.write(message.byte())
 	message_file.close()
 
 
 
-USER_FILE = './dat/users/*.dat'
-MESSAGE_FILE = './dat/messages/*.dat'
+USER_FILE = './users/*.dat'
+MESSAGE_FILE = './messages/*.dat'
 
 USER_STRUCT = 'i64s32s32s'
 MESSAGE_STRUCT = 'iiiiiii1024s'
