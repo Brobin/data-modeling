@@ -1,25 +1,18 @@
 
 '''
-Builds B+ trees for the tables
+Builds the data into a B+ tree on a given field
 '''
 
+from sort import *
 
-from load import load_users, load_messages
-
-
-# Root node contains n pointers to more files
-# those files either contain data or pointers
-# the next level of files.
-def build_user_tree(users, n):
-	length = len(users)
-	depth = 0
-	while length / (n ** depth) > 0:
-		depth = depth + 1
-	return depth
-
-users = load_users()
-num = build_user_tree(users, 10)
-print(num)
-print(len(users) - 10**(num-1))
-
-
+def build_user_tree(users, field):
+	if field == "id":
+		users = sort_by_id(users)
+	elif field == "first":
+		users = sort_by_first_name(users)
+	elif field == "last":
+		users = sort_by_last_name(users)
+	elif field == "city":
+		users = sort_by_last_city(users)
+	elif field == "state":
+		users = sort_by_last_state(users)

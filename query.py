@@ -19,7 +19,7 @@ def nebraskans(users):
 	'''
 	result = []
 	for user in users:
-		if "Nebraska" in user.location:
+		if "Nebraska" in user.state:
 			result.append(user)
 	return result
 
@@ -57,6 +57,7 @@ def best_early_nebraskan(users):
 	best_user = None
 	most_messages = 0
 	for user in users:
+		print(user)
 		num = 0
 		for m in user.messages:
 			if m.date.hour == 8 or (m.date.hour == 9 and m.date.minute == 0):

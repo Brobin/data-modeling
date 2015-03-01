@@ -9,18 +9,19 @@ import struct
 
 
 class User():
-	def __init__(self, id, name, location, messages = [], children = 0):
+	def __init__(self, id, name, city, state, messages = [], children = 0):
 		self.id = id
 		self.name = name
-		self.location = location
+		self.city = city
+		self.state = state
 		self.messages = messages
 		self.children = children
 	def __str__(self):
 		return self.csv()
 	def csv(self):
-		return "{0};{1};{2}".format(self.id, self.name, self.location)
+		return "{0};{1};{2},{3}".format(self.id, self.name, self.city, self.state)
 	def byte(self):
-		return struct.pack('i64s64si', self.id, self.name, self.location, self.children)
+		return struct.pack('i64s32s32si', self.id, self.name, self.city, self.state, self.children)
 
 class Message():
 	def __init__(self, id, user_id, date, text, children = 0):
@@ -32,7 +33,7 @@ class Message():
 	def __str__(self):
 		return self.csv()
 	def csv(self):
-		return "{0};{1};{2};{3}".format(self.id, self.user_id, self.date, self.text)
+		return "{0};{1}".format(self.id, self.date)
 	def byte(self):
 		year = self.date.year
 		month = self.date.month

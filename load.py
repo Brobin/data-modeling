@@ -26,7 +26,8 @@ def import_record(file, count):
 		messages.append(message)
 		count = count + 1
 
-	record = User(id, name, location, messages)
+	parts = location.split(",")
+	record = User(id, name, parts[0], parts[1], messages)
 	return (count, record)
 
 def import_message(file, user_id, count):
@@ -81,7 +82,7 @@ def write_message(message, number):
 USER_FILE = './dat/users/*.dat'
 MESSAGE_FILE = './dat/messages/*.dat'
 
-USER_STRUCT = 'i64s64s'
+USER_STRUCT = 'i64s32s32s'
 MESSAGE_STRUCT = 'iiiiiii1024s'
 
 def load_users():
@@ -89,8 +90,8 @@ def load_users():
 	load = struct.Struct(USER_STRUCT)
 	for user in glob.glob(USER_FILE):
 		data = open(user)
-		id, name, location = load.unpack(data.read(load.size))
-		user = User(id, name, location)
+		id, name, city, state = load.unpack(data.read(load.size))
+		user = User(id, name, city, state)
 		users.append(user)
 	return users
 
