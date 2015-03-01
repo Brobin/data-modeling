@@ -30,8 +30,8 @@ def load_users():
 def load_users_with_messages():
 	users = load_users()
 	messages = load_messages()
-	for user in users:
-		user.messages = [m for m in messages if m.user_id == user.id]
+	for m in messages:
+		users[m.user_id].messages = users[m.user_id].messages + [m]
 	return users
 
 def load_messages():
