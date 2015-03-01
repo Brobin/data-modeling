@@ -8,6 +8,7 @@ them into newly organized files.
 import datetime
 import struct
 import time
+import glob
 
 from models import Message, User
 
@@ -74,3 +75,40 @@ def write_message(message, number):
 	message_file = open('dat/messages/{0}.dat'.format(number), 'wb')
 	message_file.write(message.byte())
 	message_file.close()
+
+
+
+USER_FILE = './dat/users/*.dat'
+MESSAGE_FILE = './dat/messages/*.dat'
+
+USER_STRUCT = 'i64s64s'
+MESSAGE_STRUCT = 'iiiiiii1024s'
+
+def load_users():
+	users = []
+	load = struct.Struct(USER_STRUCT)
+	for user in glob.glob(USER_FILE):
+		data = open(user)
+		id, name, location = load.unpack(data.read(load.size))
+		user = User(id, name, location)
+		users.append(user)
+	return users
+
+
+def load_users_with_messages():
+	users = load_users()
+	messages = load_messages()
+	for m in messages:
+		users[m.user_id].messages = users[m.user_id].messages + [m]
+	return users
+
+def load_messages():
+	messages = []
+	for data in glob.glob(MESSAGE_FILE):
+		data = open(data)
+		load = struct.Struct(MESSAGE_STRUCT)
+		id, user_id, year, month, day, hour, minute, text = load.unpack(data.read(load.size))
+		date = datetime.datetime(year, month, day, hour, minute)
+		message = Message(id, user_id, date, text)
+		messages.append(message)	
+	return messages

@@ -18,6 +18,7 @@ def error():
 	commands = [
 		"\nload\t\tloads binary files to individual files\n",
 		"users {field}\tsorts the users by a field\n\t\t(id, first, last, city, state)\n",
+		"messages {field}\tsorts the messages by a field\n\t\t(id, hour, user)\n",
 		"query {x}\trun of the the queries (1-4)"
 	]
 	commands = ''.join([c for c in commands])
@@ -49,6 +50,22 @@ if length > 1:
 			users = sort_users_by_city(users)
 		elif arg == "state":
 			users = sort_users_by_state(users)
+		else:
+			print("ERROR: invalid query: {0}".format(arg))
+			error()
+		total_time = time.time() - start_time
+		print(total_time)
+
+	elif length > 2 and command == "messages":
+		start_time = time.time()
+		arg = sys.argv[2]
+		messages = load_messages()
+		if arg == "id":
+			sort_messages_by_id(messages)
+		elif arg == "hour":
+			sort_messages_by_hour(messages)
+		elif arg == "user":
+			sort_messages_by_user(messages)
 		else:
 			print("ERROR: invalid query: {0}".format(arg))
 			error()
