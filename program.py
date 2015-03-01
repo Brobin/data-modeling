@@ -70,9 +70,9 @@ if length > 1:
 			print(len(early_nebraskans(users, messages)))
 		elif arg == "4":
 			users = load_users_with_messages()
-			user = best_early_nebraskan(users)
+			user, count = best_early_nebraskan(users)
 			print(user)
-			print(len(user.messages))
+			print(count)
 		else:
 			print("ERROR: invalid query: {0}".format(arg))
 			error()

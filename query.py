@@ -93,9 +93,12 @@ def best_early_nebraskan(users):
 	best_user = None
 	most_messages = 0
 	for user in users:
-		messages = len(user.messages)
-		if messages > most_messages:
-			most_messages = messages
+		num = 0
+		for m in user.messages:
+			if m.date.hour == 8 or (m.date.hour == 9 and m.date.minute == 0):
+				num += 1
+		if num > most_messages:
+			most_messages = num
 			best_user = user
-	return best_user
+	return (best_user, most_messages)
 
