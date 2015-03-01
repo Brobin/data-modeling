@@ -45,10 +45,10 @@ def sort_messages_by_id(messages):
 	write_message_files(messages)
 	return messages
 
-def sort_messages_by_date(messages):
-	def get_date(message):
-		return message.date
-	messages = sorted(messages, key=get_date)
+def sort_messages_by_hour(messages):
+	def get_hour(message):
+		return message.date.hour
+	messages = sorted(messages, key=get_hour)
 	write_message_files(messages)
 	return messages
 
