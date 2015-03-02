@@ -12,7 +12,8 @@ import sys
 from query import *
 from load import *
 from sort import *
-from tree import *
+from tree_user import *
+from tree_query import *
 
 
 def error():
