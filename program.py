@@ -95,9 +95,9 @@ if length > 1:
 			users = load_users()
 			build_user_tree(users, sys.argv[3])
 			start_time = time.time()
-			count = tree_nebraskans('./users/tree/GROOOT_000000.dat')
+			users = search_state('./users/tree/GROOOT_000000.dat', 'Nebraska')
 			total = time.time() - start_time
-			print(count)
+			print(len(users))
 			print(total)
 	else:
 		error()

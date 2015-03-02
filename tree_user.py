@@ -94,7 +94,9 @@ def write_user_node(files, states, name, layer):
 
 	# write the data
 	f.write(s.pack(*data))
+	f.close()
 	return (filename, states[len(states)-1])
 
-
+users = load_users()
+build_user_tree(users, 10)
 

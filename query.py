@@ -31,7 +31,8 @@ def early_birds(messages):
 	for m in messages:
 		hour = m.date.hour
 		minute = m.date.minute
-		if hour == 8 or (hour == 9 and minute == 0):
+		time = (hour, minute)
+		if time >= (8,0) and time <= (9,0):
 			if m.user_id not in result:
 				result.append(m.user_id)
 	return result

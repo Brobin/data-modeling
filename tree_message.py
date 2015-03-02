@@ -84,5 +84,11 @@ def write_message_node(files, dates, name, layer):
 	data = [len(files)+len(dates)-1] + output
 	# write the data
 	f.write(s.pack(*data))
+	f.close()
 	return (filename, dates[len(dates)-1])
 
+'''
+messages = load_messages()
+build_message_tree(messages, 200)
+
+'''

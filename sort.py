@@ -38,10 +38,14 @@ def sort_messages_by_user(messages):
 
 
 def write_user_files(users):
+	x = 0
 	for user in users:
-		write_user(user, user.id)
+		write_user(user, x)
+		x += 1
 
 def write_message_files(messages):
+	x = 0
 	for message in messages:
-		write_message(message, message.id)
+		write_message(message, x)
+		x += 1
 

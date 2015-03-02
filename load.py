@@ -87,12 +87,8 @@ MESSAGE_STRUCT = 'iiiiiii1024s'
 
 def load_users():
 	users = []
-	load = struct.Struct(USER_STRUCT)
 	for user in glob.glob(USER_FILE):
-		data = open(user)
-		id, name, city, state = load.unpack(data.read(load.size))
-		user = User(id, name, city, state)
-		users.append(user)
+		users.append(load_user(user))
 	return users
 
 
@@ -117,3 +113,11 @@ def load_message(filename):
 	date = datetime.datetime(year, month, day, hour, minute)
 	message = Message(id, user_id, date, text)
 	return message
+
+def load_user(filename):
+	data = open(filename)
+	load = struct.Struct(USER_STRUCT)
+	id, name, city, state = load.unpack(data.read(load.size))
+	data.close()
+	user = User(id, name, city, state)
+	return user
