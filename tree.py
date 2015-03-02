@@ -17,6 +17,19 @@ from sort import *
 from load import load_users, pad_zeroes
 
 
+def chunks(array, n):
+	'''
+	Splits a list into n-sized chunks
+	'''
+	chunks = []
+	x = 0
+	while x < len(array):
+		num = min(len(array)-x, n)
+		chunks.append(array[x:x+num])
+		x += num
+	return chunks
+
+
 def build_user_tree(users, fanout):
 	# sort the users
 	users = sort_users_by_state(users)
@@ -28,66 +41,73 @@ def build_user_tree(users, fanout):
 	# split the files and users into fanout sized chunks
 	file_names = chunks(user_files, fanout)
 	user_chunks = chunks(users, fanout)
-
+	
 	# get the first layer of the tree files
 	layer = 0
 	results = []
 	for x in range(0, len(user_chunks)):
-		results.append(write_tree_file_initial(file_names[x], user_chunks[x], x, layer))
+		results.append(write_user_node_initial(file_names[x], user_chunks[x], x, layer))
 
+	# Loop until we create each layer down to the root
 	layer = 1
-	# loop until we create each layer until the root
 	while len(results) > 1:
-
-		# chunk it into fanout sized pieces
 		result_chunks = chunks(results, fanout)
 		results = []
 		i = 0
-		# go through each result
-		for x in result_chunks:
+		for chunk in result_chunks:
 			files = []
-			beg = x[0][1]
-			end = x[len(x)-1][2]
-			# add each result to the files to write
-			for y in x:
-				files.append(y[0])
-
-			# write the tree file
-			if len(results) == 0:
-				results.append(write_file(files, beg, end, i, "ROOOOT"))
+			states = []
+			for file, state in chunk:
+				files.append(file)
+				states.append(state)
+			if len(result_chunks) < 2:
+				# I AM GROOT!!!!!!!!!
+				results.append(write_user_node(files, states, i, "GROOOT"))
 			else:
-				results.append(write_file(files, beg, end, i, layer))
+				results.append(write_user_node(files, states, i, layer))
 			i += 1
 		layer += 1
-
 	return results
 
 
-
-def write_tree_file_initial(files, users, name, layer):
-	beg_state = users[0].state.split('\x00', 1)[0]
-	end_state = users[len(users)-1].state.split('\x00', 1)[0]
-	return write_file(files, beg_state, end_state, name, layer)
+def write_user_node_initial(files, users, name, layer):
+	states = [u.state for u in users]
+	return write_user_node(files, states, name, layer)
 
 
-def write_file(files, beg_state, end_state, name, layer):
-	s = struct.Struct('32s32si' + '64s'*len(files))
-	filename = './users/tree/tree_{0}_{1}.dat'.format(pad_zeroes(layer), pad_zeroes(name))
+def write_user_node(files, states, name, layer):
+	# set up the struct to pack the data correctly
+	# num | filename | state | filename | state |filename
+	s = struct.Struct('i' + '64s'*(len(files)) + '64s'*(len(states)-1))
+
+	# open the file
+	filename = './users/tree/{0}_{1}.dat'.format(pad_zeroes(layer), pad_zeroes(name))
 	f = open(filename, 'wb')
-	data = [beg_state, end_state, len(files)-1] + [x for x in files]
+
+	# prepare the data to pack
+	output = []
+	for x in range(0, len(files)):
+		output.append(files[x])
+		if x != len(states)-1:
+			output.append(states[x])
+	data = [len(files)+len(states)-1] + output
+
+	# write the data
 	f.write(s.pack(*data))
-	return (filename, beg_state, end_state)
+	return (filename, states[len(states)-1])
 
 
-def chunks(array, n):
-	chunks = []
-	x = 0
-	while x < len(array):
-		num = min(len(array)-x, n)
-		chunks.append(array[x:x+num])
-		x += num
-	return chunks
 
-result = build_user_tree(load_users(), 200)
-print(result)
 
+# start at the root
+# go down the tree and find the sub-trees that would
+# contain Nebraska
+# work all the way down to the user files and return
+# the count of users
+def tree_nebraskans(filename):
+	return None
+
+
+
+users = load_users()
+print(build_user_tree(users, 100))
