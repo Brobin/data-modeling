@@ -31,7 +31,7 @@ To run any of these queries, run the following command, replacing `{x}` with the
 
 ### Building B+ trees
 
-B+ trees are a way to speed up the searching of a file system by creating successive layers of indexes to organize the data. To create the B+ trees to query, first make sure you have the `users/tree` and `messages/tree` directories created. Then run the following command, replacing the `{x}` with the maximum number of children a node may have (we used 10 and 200 for testing in this project).
+B+ trees are a way to speed up the searching of a file system by creating successive layers of indexes to organize the data. To create the B+ trees to query, first make sure you have the `users/tree` and `messages/tree` directories created. Then run the following command, replacing the `{x}` with the maximum number of children a node may have (we used 10 and 200 for testing in this project). To optimize the trees for these queries, the users are sorted by state, and the messages are organized by time (hour, mminute).
 
 `python program.py tree {x}`
 
