@@ -1,4 +1,9 @@
 
+'''
+builds the Messages B+ tree sorted by the time (hour, minute)
+'''
+
+
 from load import *
 from sort import *
 
@@ -87,8 +92,3 @@ def write_message_node(files, dates, name, layer):
 	f.close()
 	return (filename, dates[len(dates)-1])
 
-'''
-messages = load_messages()
-build_message_tree(messages, 200)
-
-'''

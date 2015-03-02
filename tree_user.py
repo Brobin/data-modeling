@@ -97,6 +97,3 @@ def write_user_node(files, states, name, layer):
 	f.close()
 	return (filename, states[len(states)-1])
 
-users = load_users()
-build_user_tree(users, 10)
-

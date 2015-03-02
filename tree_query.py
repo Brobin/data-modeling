@@ -5,6 +5,10 @@ from load import load_message, load_user
 
 
 def search_state(filename, key):
+	'''
+	Search all of the users and return the ones that are from the
+	state provided (key)
+	'''
 	result = []
 
 	# if the file is a leaf, add the user the result
@@ -50,7 +54,8 @@ def search_state(filename, key):
 
 def tree_time(filename, start_time, end_time):
 	'''
-	find all users who sent messages between 8am-9am
+	Search all of the messages and return the ones that were sent
+	between the start and ending times.
 	'''
 	result = []
 	if "tree" not in filename:
@@ -73,11 +78,12 @@ def tree_time(filename, start_time, end_time):
 		found = False
 		for i in range(0, len(times)):
 
-			if not found and times[i] >= start_time:
+			if not found and times[i] > end_time:
 				found = True
 				result += tree_time(pointers[i], start_time, end_time)
 
 			elif times[i] >= start_time and times[i] <= end_time:
+
 				result += tree_time(pointers[i], start_time, end_time)
 				if i == len(times) - 1:
 					result += tree_time(pointers[i+1], start_time, end_time)
@@ -88,11 +94,66 @@ def tree_time(filename, start_time, end_time):
 	return result
 
 
-root = './messages/tree/GROOOT_000000.dat'
-mess = tree_time(root, (8,0), (9,0))
-result = []
-for x in mess:
-	if x.user_id not in result:
-		result.append(x.user_id)
-print(len(result))
+def tree_nebraskans():
+	'''
+	Get all of the users that are from Nebraska
+	'''
+	user_root = './users/tree/GROOOT_000000.dat'
+	users = search_state(user_root, 'Nebraska')
+	return users
+
+def tree_early_bird_messages():
+	'''
+	Get all of the messages sent between 8 and 9 am
+	'''
+	message_root = './messages/tree/GROOOT_000000.dat'
+	messages = tree_time(message_root, (8,0), (9,0))
+	return messages
+
+def tree_early_birds():
+	'''
+	Get the user_ids of the users that sent messages
+	between 8 and 9 am
+	'''
+	messages = tree_early_bird_messages()
+	result = []
+	for x in messages:
+		if x.user_id not in result:
+			result.append(x.user_id)
+	return result
+
+def tree_early_nebraskans():
+	'''
+	Get the users from Nebraska who sent messages
+	between 8 and 9 am
+	'''
+	users = tree_nebraskans()
+	ids = tree_early_birds()
+	result = [u for u in users if u.id in ids]
+	return result
+
+
+def tree_best_early_nebraskan():
+	'''
+	Get the Nenbraskan who sent the most messages
+	between 8 and 9 am
+	'''
+	users = tree_early_nebraskans()
+	messages = tree_early_bird_messages()
+
+	for user in users:
+		user.messages = [m for m in messages if m.user_id == user.id]
+
+	most_messages = 0
+	best_user = None
+
+	for user in users:
+		m = len(user.messages)
+		if m > most_messages:
+			most_messages = m
+			best_user = user
+
+	return (best_user, most_messages)
+
+
 
