@@ -12,13 +12,14 @@ import sys
 from query import *
 from load import *
 from sort import *
+from tree import *
 
 
 def error():
 	commands = [
 		"\nload\t\tloads binary files to individual files\n",
 		"users {field}\tsorts the users by a field\n\t\t(id, state)\n",
-		"messages {field}\tsorts the messages by a field\n\t\t(id, hour, user)\n",
+		"messages {field}\tsorts the messages by a field\n\t\t(time, user)\n",
 		"query {x}\trun of the the queries (1-4)"
 	]
 	commands = ''.join([c for c in commands])
@@ -54,10 +55,8 @@ if length > 1:
 		start_time = time.time()
 		arg = sys.argv[2]
 		messages = load_messages()
-		if arg == "id":
-			sort_messages_by_id(messages)
-		elif arg == "hour":
-			sort_messages_by_hour(messages)
+		if arg == "time":
+			sort_messages_by_time(messages)
 		elif arg == "user":
 			sort_messages_by_user(messages)
 		else:
@@ -89,6 +88,16 @@ if length > 1:
 			error()
 		total_time = time.time() - start_time
 		print(total_time)
+
+	elif length > 3 and command == "tree-query":
+		if sys.argv[2] == "1":
+			users = load_users()
+			build_user_tree(users, sys.argv[3])
+			start_time = time.time()
+			count = tree_nebraskans('./users/tree/GROOOT_000000.dat')
+			total = time.time() - start_time
+			print(count)
+			print(total)
 	else:
 		error()
 else:

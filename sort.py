@@ -5,7 +5,7 @@ and reindexes the files in that order.
 '''
 
 
-from load import write_user, write_message
+from load import *
 
 
 def sort_users_by_id(users):
@@ -22,10 +22,10 @@ def sort_users_by_state(users):
 	write_user_files(users)
 	return users
 
-def sort_messages_by_hour(messages):
-	def get_hour(message):
-		return message.date.hour
-	messages = sorted(messages, key=get_hour)
+def sort_messages_by_time(messages):
+	def get_time(message):
+		return (message.date.hour, message.date.minute)
+	messages = sorted(messages, key=get_time)
 	write_message_files(messages)
 	return messages
 
@@ -43,6 +43,5 @@ def write_user_files(users):
 
 def write_message_files(messages):
 	for message in messages:
-		write_message(message, user.id)
-
+		write_message(message, message.id)
 

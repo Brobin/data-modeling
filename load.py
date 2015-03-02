@@ -106,10 +106,14 @@ def load_users_with_messages():
 def load_messages():
 	messages = []
 	for data in glob.glob(MESSAGE_FILE):
-		data = open(data)
-		load = struct.Struct(MESSAGE_STRUCT)
-		id, user_id, year, month, day, hour, minute, text = load.unpack(data.read(load.size))
-		date = datetime.datetime(year, month, day, hour, minute)
-		message = Message(id, user_id, date, text)
+		message = load_message(data)
 		messages.append(message)	
 	return messages
+
+def load_message(filename):
+	data = open(filename)
+	load = struct.Struct(MESSAGE_STRUCT)
+	id, user_id, year, month, day, hour, minute, text = load.unpack(data.read(load.size))
+	date = datetime.datetime(year, month, day, hour, minute)
+	message = Message(id, user_id, date, text)
+	return message
