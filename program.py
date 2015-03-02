@@ -22,7 +22,7 @@ def error():
 		"\nload\t\tloads binary files to individual files\n",
 		"tree {fnout}\tbuilds the B+ trees of users and messages\n",
 		"query {x}\trun of the the queries (1-4)\n",
-		"tree_query {x}\trun the query on the B+ tree (1-4)\n"
+		"tree-query {x}\trun the query on the B+ tree (1-4)\n"
 	]
 	commands = ''.join([c for c in commands])
 	print("\nAvailiable Commands{0}".format(commands))
