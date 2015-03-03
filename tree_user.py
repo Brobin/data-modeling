@@ -99,7 +99,3 @@ def write_user_node(files, attrs, name, layer):
 	f.close()
 	return (filename, attrs[len(attrs)-1])
 
-'''
-users = load_users()
-build_user_tree(users, 200, "city")
-'''
