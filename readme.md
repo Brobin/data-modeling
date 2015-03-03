@@ -50,13 +50,13 @@ B+ trees are a way to speed up the searching of a file system by creating succes
 
 ### Querying the B+ trees
 
-Once the trees have been built, we can run the same queries against them to see the decrease in processing time due to the indexing of the files. To run a query, simply type in the following command replacing `{x}` wiht the corresponding query number seen above. Once again, the result of the query and the time that it took will be printed out.
+Once the trees have been built, we can run the same queries against them to see the decrease in processing time due to the indexing of the files. To run a query, simply type in the following command replacing `{x}` withw the corresponding query number seen above. Once again, the result of the query and the time that it took will be printed out.
 
 `python program.py tree-query {x}`
 
 # Timing Results
 
-Below ar ethe timing results of running the queries on each type of table. The values are approximate and were gathered from and average of three tests each.
+Below are the timing results of running the queries on each type of table. The values are approximate and were gathered from and average of three tests each.
 
 | Query | flat files | B+ tree 10 | B+ tree 200 |
 |---|---|---|---|
