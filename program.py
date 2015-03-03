@@ -8,6 +8,7 @@ run queries and set up the database.
 import datetime
 import time
 import sys
+import os
 
 from query import *
 from load import *
@@ -20,12 +21,22 @@ from tree_query import *
 def error():
 	commands = [
 		"\nload\t\tloads binary files to individual files\n",
-		"tree {fnout}\tbuilds the B+ trees of users and messages\n",
+		"tree {fanout}\tbuilds the B+ trees of users and messages\n",
 		"query {x}\trun of the the queries (1-4)\n",
 		"tree-query {x}\trun the query on the B+ tree (1-4)\n"
 	]
 	commands = ''.join([c for c in commands])
 	print("\nAvailiable Commands{0}".format(commands))
+
+def make_path(dir):
+	if not os.path.exists(dir):
+		os.mkdir(dir)
+
+# make the required directories if the don't exist
+make_path('./users')
+make_path('./messages')
+make_path('./users/tree')
+make_path('./messages/tree')
 
 
 length = len(sys.argv)
@@ -95,3 +106,4 @@ if length > 1:
 		error()
 else:
 	error()
+

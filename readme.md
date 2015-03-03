@@ -17,7 +17,7 @@ Data modeling assignment assigned for CSCE 378H at the University of Nebraska - 
 
 ### Before running
 
-To run this project, you must first unzip data.zip into the same directory as the program files. Next you must create `users`, `messages`, `users/tree`, and `messages/tree` directories, so that when the program reorganizes the given data it will have directories to store it in.
+To run this project, you must first unzip data.zip into the same directory as the program files. 
 
 ### Load the files
 
@@ -25,7 +25,7 @@ Now that the data is unpacked, you can load it into the organized structure by r
 
 `python program.py load`
 
-After this command, the program will populate the `users` and `messages` directories with the organized files. Now we are ready to run some queries against the flat file system.
+After this command, the program will create the `users` and `messages` directories and populate them with the organized files. Now we are ready to run some queries against the flat file system.
 
 ### Running the queries
 
@@ -44,9 +44,11 @@ To run any of these queries, run the following command, replacing `{x}` with the
 
 ### Building B+ trees
 
-B+ trees are a way to speed up the searching of a file system by creating successive layers of indexes to organize the data. To create the B+ trees to query, first make sure you have the `users/tree` and `messages/tree` directories created. Then run the following command, replacing the `{x}` with the maximum number of children a node may have (we used 10 and 200 for testing in this project). To optimize the trees for these queries, the users are sorted by state, and the messages are organized by time (hour, mminute).
+B+ trees are a way to speed up the searching of a file system by creating successive layers of indexes to organize the data. To create the B+ trees to query, run the following command, replacing the `{x}` with the maximum number of children a node may have (we used 10 and 200 for testing in this project). To optimize the trees for these queries, the users are sorted by state, and the messages are organized by time (hour, minute).
 
 `python program.py tree {x}`
+
+After running this command, the program will create the `users/tree` and `messages/tree` and populate them with the files structured in a B+ tree fashion with the the file `GROOOT_000000.dat` beign the root node, which contains n pointers and n-1 keys.
 
 ### Querying the B+ trees
 
