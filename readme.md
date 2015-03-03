@@ -1,12 +1,12 @@
 # Data Modeling Assignment 1
 
-Data modeling assignment assigned for CSCE 378H at the University of Nebraska - Lincoln. The task is to organize the given records (contained in data.zip) into a  structured file system in order to run 4 given queries against it. Then reorganize the files into B+ trees and run the same queries to see how much processing time is saved.
+Data modeling assignment assigned for CSCE 378H at the University of Nebraska - Lincoln. The task is to organize the given records (contained in data.zip) into a  structured file system in order to run 4 given queries against it. Then reorganize the files into B+ trees and run the same queries to see how much processing time is saved. Timing results can be found below.
 
-## Before running
+### Before running
 
 To run this project, you must first unzip data.zip intot he same directory as the program files. Next you must create `users`, `messages`, `users/tree`, and `messages/tree` directories, so that when the program reorganizes the given data it will have directories to store it in.
 
-## Load the files
+### Load the files
 
 Now that the data is unpacked, you can load it into the organized structure by running the following command
 
@@ -40,3 +40,14 @@ B+ trees are a way to speed up the searching of a file system by creating succes
 Once the trees have been built, we can run the same queries against them to see the decrease in processing time due to the indexing of the files. To run a query, simply type in the following command replacing `{x}` wiht the corresponding query number seen above. Once again, the result of the query and the time that it took will be printed out.
 
 `python program.py tree-query {x}`
+
+# Timing Results
+
+Below ar ethe timing results of running the queries on each type of table. The values are approximate and were gathered from and average of three tests each.
+
+| Query | flat files | B+ tree 10 | B+ tree 200 |
+|---|---|---|---|
+| 1 | 0.02912 s | 0.0009241 s | 0.0011749 s |
+| 2 | 1.91538 s | 0.1179518 s | 0.1112210 s |
+| 3 | 2.0338 s | 0.1085591 s | 0.1006789 s |
+| 4 | 4.4823 s | 0.1984589 s | 0.1847808 s |
