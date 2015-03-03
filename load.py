@@ -47,6 +47,7 @@ def import_all_records(start, end):
 			number = '0' + number
 		record  = open('data/record_{0}.dat'.format(number), 'rb')
 		count, processed_record = import_record(record, count)
+		record.close()
 		records.append(processed_record)
 	return records
 
@@ -110,6 +111,7 @@ def load_message(filename):
 	data = open(filename)
 	load = struct.Struct(MESSAGE_STRUCT)
 	id, user_id, year, month, day, hour, minute, text = load.unpack(data.read(load.size))
+	data.close()
 	date = datetime.datetime(year, month, day, hour, minute)
 	message = Message(id, user_id, date, text)
 	return message
