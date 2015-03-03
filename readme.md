@@ -1,6 +1,6 @@
 # Data Modeling Assignment 1
 
-Data modeling assignemnt assigned for CSCE 378H at the University of Nebraska - Lincoln. The task is to organize the given records (contained in data.zip) into a  structured file system in order to run 4 given queries against it. Then reorganize the files into B+ trees and run the same queries to see how much processing time is saved.
+Data modeling assignment assigned for CSCE 378H at the University of Nebraska - Lincoln. The task is to organize the given records (contained in data.zip) into a  structured file system in order to run 4 given queries against it. Then reorganize the files into B+ trees and run the same queries to see how much processing time is saved.
 
 ## Before running
 
@@ -37,6 +37,6 @@ B+ trees are a way to speed up the searching of a file system by creating succes
 
 ### Querying the B+ trees
 
-Once the trees have been built, we can run the same queries against them to see the decrease in processing time due to the indexing of the files. To run a query, simply type in the following command replacing `{x}` wiht the corresponding query number seen above. Once again, teh result of the query and the time that it took will be printed out.
+Once the trees have been built, we can run the same queries against them to see the decrease in processing time due to the indexing of the files. To run a query, simply type in the following command replacing `{x}` wiht the corresponding query number seen above. Once again, the result of the query and the time that it took will be printed out.
 
 `python program.py tree-query {x}`
