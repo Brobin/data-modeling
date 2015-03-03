@@ -6,29 +6,15 @@ them into newly organized files.
 
 
 import datetime
-import struct
-import time
 import glob
 
 from models import Message, User
-
-
-RECORD_USER = struct.Struct('i64s64si')
-RECORD_MESSAGE = struct.Struct('1024siiiii')
-RECORD_FILE = './data/record_{0}.dat'
-
-USER_FILES = './users/*.dat'
-MESSAGE_FILES = './messages/*.dat'
-
-USER_FILE = './users/{0}.dat'
-MESSAGE_FILE = './messages/{0}.dat'
-
-USER_STRUCT = 'i32s32s32s32s'
-MESSAGE_STRUCT = 'iiiiiii1024s'
+from constants import *
 
 
 def import_record(file, count):
-	id, name, location, num = RECORD_USER.unpack(file.read(RECORD_USER.size))
+	id, name, location, num = RECORD_USER.unpack(
+		file.read(RECORD_USER.size))
 	name = name.split(b"\0", 1)[0]
 	location = location.split(b"\0", 1)[0]
 
@@ -44,12 +30,15 @@ def import_record(file, count):
 	record = User(id, names[0], names[1], parts[0], parts[1], messages)
 	return (count, record)
 
+
 def import_message(file, user_id, count):
-	text, year, month, day, hour, minute = RECORD_MESSAGE.unpack(file.read(RECORD_MESSAGE.size))
+	text, year, month, day, hour, minute = RECORD_MESSAGE.unpack(
+		file.read(RECORD_MESSAGE.size))
 	text = text.split(b"\0", 1)[0]
 	date = datetime.datetime(year, month, day, hour, minute)
 	message = Message(count, user_id, date, text)
 	return message
+
 
 def import_all_records(start, end):
 	records = []
@@ -64,6 +53,7 @@ def import_all_records(start, end):
 		records.append(processed_record)
 	return records
 
+
 def pad_zeroes(number):
 	number = str(number)
 	while (len(number) < 6):
@@ -72,18 +62,19 @@ def pad_zeroes(number):
 
 
 def import_files():
-	start_time = time.time()
 	records = import_all_records(0, 2000)
 	for user in records:
 		write_user(user, user.id)
 		for message in user.messages:
 			write_message(message, message.id)
 
+
 def write_user(user, number):
 	number = pad_zeroes(number)
 	user_file = open(USER_FILE.format(number), 'wb')
 	user_file.write(user.byte())
 	user_file.close()
+
 
 def write_message(message, number):
 	number = pad_zeroes(number)
@@ -98,26 +89,30 @@ def load_users():
 		users.append(load_user(user))
 	return users
 
+
 def load_messages():
 	messages = []
 	for data in glob.glob(MESSAGE_FILES):
 		message = load_message(data)
-		messages.append(message)	
+		messages.append(message)
 	return messages
+
 
 def load_message(filename):
 	data = open(filename)
-	load = struct.Struct(MESSAGE_STRUCT)
-	id, user_id, year, month, day, hour, minute, text = load.unpack(data.read(load.size))
+	id, user_id, year, month, day, hour, minute, text = MESSAGE_STRUCT.unpack(
+		data.read(MESSAGE_STRUCT.size))
 	data.close()
 	date = datetime.datetime(year, month, day, hour, minute)
 	message = Message(id, user_id, date, text)
 	return message
 
+
 def load_user(filename):
 	data = open(filename)
-	load = struct.Struct(USER_STRUCT)
-	id, first, last, city, state = load.unpack(data.read(load.size))
+	id, first, last, city, state = USER_STRUCT.unpack(
+		data.read(USER_STRUCT.size))
 	data.close()
 	user = User(id, first, last, city, state)
 	return user
+

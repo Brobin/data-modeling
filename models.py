@@ -4,8 +4,7 @@ Models to contain the data for Users and Messages
 '''
 
 
-import datetime
-import struct
+from constants import USER_STRUCT, MESSAGE_STRUCT
 
 
 class User():
@@ -20,7 +19,7 @@ class User():
 		return "{0};{1},{2};{3},{4}".format(self.id, 
 			self.last, self.first, self.city, self.state)
 	def byte(self):
-		return struct.pack('i32s32s32s32s', self.id, 
+		return USER_STRUCT.pack(self.id, 
 			self.first, self.last, self.city, self.state)
 
 class Message():
@@ -37,6 +36,6 @@ class Message():
 		day = self.date.day
 		hour = self.date.hour
 		minute = self.date.minute
-		return struct.pack('iiiiiii1024s', self.id, self.user_id, 
+		return MESSAGE_STRUCT.pack(self.id, self.user_id, 
 			year, month, day, hour, minute, self.text)
 

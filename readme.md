@@ -7,6 +7,7 @@ Data modeling assignment assigned for CSCE 378H at the University of Nebraska - 
 | file | description |
 |---|---|
 | program.py | contains the command line program |
+| constants.py | contains filenames and strings that are constant |
 | models.py | model definitions for users and messages |
 | load.py | loads the records from the old files and reads and writes the new ones |
 | sort.py | contains methods to sort lists of users and messages |

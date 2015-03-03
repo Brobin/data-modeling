@@ -2,21 +2,18 @@
 '''
 Builds the data into a B+ tree on a given field
 
-Node file contents - (starting value, ending value, list of filenames)
-If node doesn't have children with data, set the values to null
+Node file contents:
+	 num | filename | attr | filename | attr |filename
 list of filenames will be as long as the fanout
-
 '''
 
 import struct
-import numpy
 import glob
 
 
-from sort import *
+from sort import sort_users
 from load import *
-
-USER_TREE_FILE = './users/tree/{0}_{1}.dat'
+from constants import USER_TREE_FILE
 
 
 def chunks(array, n):
@@ -58,15 +55,15 @@ def build_user_tree(users, fanout, attr):
 		i = 0
 		for chunk in result_chunks:
 			files = []
-			states = []
-			for file, state in chunk:
+			attrs = []
+			for file, attr in chunk:
 				files.append(file)
-				states.append(state)
+				attrs.append(attr)
 			if len(result_chunks) < 2:
 				# I AM GROOT!!!!!!!!!
-				results.append(write_user_node(files, states, i, "GROOOT"))
+				results.append(write_user_node(files, attrs, i, "GROOOT"))
 			else:
-				results.append(write_user_node(files, states, i, layer))
+				results.append(write_user_node(files, attrs, i, layer))
 			i += 1
 		layer += 1
 	return results
