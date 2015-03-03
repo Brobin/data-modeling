@@ -17,11 +17,11 @@ Data modeling assignment assigned for CSCE 378H at the University of Nebraska - 
 
 ### Before running
 
-To run this project, you must first unzip data.zip into the same directory as the program files. 
+To run this project, you must first unzip data.zip into the same directory as the program files.
 
 ### Load the files
 
-Now that the data is unpacked, you can load it into the organized structure by running the following command
+Now that the data is unpacked, you can load it into the organized structure by running the following command:
 
 `python program.py load`
 
@@ -29,7 +29,7 @@ After this command, the program will create the `users` and `messages` directori
 
 ### Running the queries
 
-This program has 4 hard-coded queries to retrieve data from the files
+This program has 4 hard-coded queries to retrieve data from the files.
 
 <ol>
   <li>Find all of the users from Nebraska</li>
@@ -38,7 +38,7 @@ This program has 4 hard-coded queries to retrieve data from the files
   <li>Find the user from Nebraska who sent the maximum number of messages between 8 and 9 am</li>
 </ol>
 
-To run any of these queries, run the following command, replacing `{x}` with the number of the query. The result of the query and the time that it took to run the query will be printed out
+To run any of these queries, run the following command, replacing `{x}` with the number of the query. The result of the query and the time that it took to run the query will be printed out.
 
 `python program.py query {x}`
 
@@ -48,7 +48,7 @@ B+ trees are a way to speed up the searching of a file system by creating succes
 
 `python program.py tree {x}`
 
-After running this command, the program will create the `users/tree` and `messages/tree` and populate them with the files structured in a B+ tree fashion with the the file `GROOOT_000000.dat` beign the root node, which contains n pointers and n-1 keys.
+After running this command, the program will create the `users/tree` and `messages/tree` and populate them with the files structured in a B+ tree fashion with the the file `GROOOT_000000.dat` (I AM GROOT!) being the root node, which contains n pointers and n-1 keys.
 
 ### Querying the B+ trees
 
