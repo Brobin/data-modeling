@@ -61,6 +61,8 @@ Once the trees have been built, we can run the same queries against them to see 
 
 Below are the timing results of running the queries on each type of table. The values are approximate and were gathered from and average of three tests each.
 
+> NOTE: These results are as they were observed on my laptop, running Xubuntu 14.10 with a solid state drive. Results when running the program on other machines may vary, but only by a constant factor. The time complexity decrease from O(n) to O(log(n)) when using B+ trees will still be evident.
+
 | Query | flat files | B+ tree 10 | B+ tree 200 |
 |---|---|---|---|
 | 1 | 0.02912 s | 0.0009241 s | 0.0011749 s |
