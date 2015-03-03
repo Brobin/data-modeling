@@ -2,6 +2,19 @@
 
 Data modeling assignment assigned for CSCE 378H at the University of Nebraska - Lincoln. The task is to organize the given records (contained in data.zip) into a  structured file system in order to run 4 given queries against it. Then reorganize the files into B+ trees and run the same queries to see how much processing time is saved. Timing results can be found below.
 
+#### File descriptions
+
+| file | description |
+|---|---|
+| program.py | contains the command line program |
+| models.py | model definitions for users and messages |
+| load.py | loads the records from the old files and reads and writes the new ones |
+| sort.py | contains methods to sort lists of users and messages |
+| query.py | contains methods to run the queries on the flat files |
+| tree_user.py | contains methods to build the B+ tree of users |
+| tree_message.py | contains methods to build the B+ tree of messages |
+| tree_query.py | contains methods to run the queries against the B+ trees |
+
 ### Before running
 
 To run this project, you must first unzip data.zip intot he same directory as the program files. Next you must create `users`, `messages`, `users/tree`, and `messages/tree` directories, so that when the program reorganizes the given data it will have directories to store it in.
