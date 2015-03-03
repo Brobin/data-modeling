@@ -9,18 +9,19 @@ import struct
 
 
 class User():
-	def __init__(self, id, name, city, state, messages = []):
+	def __init__(self, id, first, last, city, state, messages = []):
 		self.id = id
-		self.name = name
+		self.first = first
+		self.last = last
 		self.city = city
 		self.state = state
 		self.messages = messages
 	def __str__(self):
-		return "{0};{1};{2},{3}".format(self.id, 
-			self.name, self.city, self.state)
+		return "{0};{1},{2};{3},{4}".format(self.id, 
+			self.last, self.first, self.city, self.state)
 	def byte(self):
-		return struct.pack('i64s32s32s', self.id, 
-			self.name, self.city, self.state)
+		return struct.pack('i32s32s32s32s', self.id, 
+			self.first, self.last, self.city, self.state)
 
 class Message():
 	def __init__(self, id, user_id, date, text):

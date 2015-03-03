@@ -55,7 +55,7 @@ if length > 1:
 
 		start = time.time()
 		users = load_users()
-		build_user_tree(users, fanout)
+		build_user_tree(users, fanout, "state")
 		end = time.time() - start
 		print("\nBuilt user B+ tree of fanout {0} in {1} seconds".format(fanout, end))
 

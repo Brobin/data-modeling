@@ -4,7 +4,7 @@ import struct
 from load import load_message, load_user
 
 
-def search_state(filename, key):
+def user_search(filename, key):
 	'''
 	Search all of the users and return the ones that are from the
 	state provided (key)
@@ -37,17 +37,17 @@ def search_state(filename, key):
 			# than our search, add it to the result
 			if not found and keys[i] > key:
 				found = True
-				result += search_state(pointers[i], key)
+				result += user_search(pointers[i], key)
 			# if the current key equals our search, add it to the result
 			# if it is the last key, add the following pointer too
 			elif keys[i] == key:
-				result += search_state(pointers[i], key)
+				result += user_search(pointers[i], key)
 				if i == len(keys) - 1:
-					result += search_state(pointers[i+1], key)
+					result += user_search(pointers[i+1], key)
 			# if we are on out last key and haven't found any matches yet,
 			# search the last pointer
 			elif i == len(keys) - 1 and not found:
-				result += search_state(pointers[i+1], key)
+				result += user_search(pointers[i+1], key)
 
 	return result
 
@@ -99,7 +99,7 @@ def tree_nebraskans():
 	Get all of the users that are from Nebraska
 	'''
 	user_root = './users/tree/GROOOT_000000.dat'
-	users = search_state(user_root, 'Nebraska')
+	users = user_search(user_root, 'Nebraska')
 	return users
 
 def tree_early_bird_messages():
